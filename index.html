@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fat Henry's Burger Paradise 🍔</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--red:#8B0000;--mustard:#FFD700;--black:#111;--cream:#FFF8DC;--dark-red:#5a0000}
+  html{scroll-behavior:smooth}
+  body{font-family:'Fredoka',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden}
+
+  /* ===== FLOATING EMOJIS ===== */
+  .floater{position:fixed;font-size:2rem;opacity:.15;pointer-events:none;z-index:0;animation:floatUp linear infinite}
+  @keyframes floatUp{0%{transform:translateY(110vh) rotate(0deg)}100%{transform:translateY(-10vh) rotate(360deg)}}
+
+  /* ===== HERO ===== */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;background:var(--red);overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-conic-gradient(var(--dark-red) 0% 25%,var(--red) 0% 50%) 50%/60px 60px;opacity:.3;animation:patternShift 20s linear infinite}
+  @keyframes patternShift{to{background-position:60px 60px}}
+  .hero-content{position:relative;z-index:1;padding:2rem}
+  .hero h1{font-family:'Bangers',cursive;font-size:clamp(4rem,12vw,10rem);color:var(--mustard);text-shadow:4px 4px 0 var(--black),8px 8px 0 rgba(0,0,0,.3);line-height:.9;letter-spacing:.05em;animation:heroSlam .6s ease-out}
+  @keyframes heroSlam{0%{transform:scale(2);opacity:0}60%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
+  .hero .subtitle{font-family:'Bangers',cursive;font-size:clamp(1.2rem,3vw,2rem);color:var(--cream);margin-top:.5rem;opacity:0;animation:fadeUp .8s ease-out .4s forwards}
+  .hero .tagline{font-size:clamp(1rem,2vw,1.3rem);margin-top:1rem;color:rgba(255,248,220,.7);opacity:0;animation:fadeUp .8s ease-out .6s forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  .hero .tagline,.hero .subtitle{transform:translateY(20px)}
+  .cta{display:inline-block;margin-top:2.5rem;padding:1rem 3rem;background:var(--mustard);color:var(--red);font-family:'Bangers',cursive;font-size:1.6rem;text-decoration:none;border-radius:50px;border:3px solid var(--black);box-shadow:4px 4px 0 var(--black);transition:all .2s;opacity:0;animation:fadeUp .8s ease-out .8s forwards;transform:translateY(20px);position:relative;overflow:hidden}
+  .cta:hover{transform:translateY(-3px)!important;box-shadow:6px 6px 0 var(--black);background:#fff}
+  .cta:active{transform:translateY(1px)!important;box-shadow:2px 2px 0 var(--black)}
+  .cta-glow{position:absolute;inset:-2px;border-radius:50px;background:var(--mustard);animation:pulseGlow 2s ease-in-out infinite;z-index:-1}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 10px var(--mustard),0 0 20px var(--mustard)}50%{box-shadow:0 0 20px var(--mustard),0 0 40px var(--mustard),0 0 60px rgba(255,215,0,.3)}}
+  .hero-burger{font-size:clamp(3rem,8vw,6rem);animation:sizzle 2s ease-in-out infinite;display:inline-block;margin-bottom:1rem}
+  @keyframes sizzle{0%,100%{transform:rotate(-5deg) scale(1)}25%{transform:rotate(3deg) scale(1.05)}50%{transform:rotate(-3deg) scale(1)}75%{transform:rotate(5deg) scale(1.03)}}
+  .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;font-size:1.5rem;opacity:.6}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+
+  /* ===== SECTIONS SHARED ===== */
+  section{padding:5rem 1.5rem;position:relative;z-index:1}
+  .section-title{font-family:'Bangers',cursive;font-size:clamp(2.5rem,6vw,4rem);text-align:center;color:var(--mustard);margin-bottom:.5rem}
+  .section-sub{text-align:center;color:rgba(255,248,220,.6);margin-bottom:3rem;font-size:1.1rem}
+  .container{max-width:1100px;margin:0 auto}
+
+  /* ===== ABOUT ===== */
+  .about{background:var(--black)}
+  .about-card{background:linear-gradient(135deg,rgba(139,0,0,.3),rgba(139,0,0,.1));border:2px solid rgba(255,215,0,.2);border-radius:20px;padding:3rem;max-width:800px;margin:0 auto;text-align:center;line-height:1.8;font-size:1.1rem;position:relative;overflow:hidden}
+  .about-card::before{content:'🍔';position:absolute;top:-10px;right:-10px;font-size:4rem;opacity:.15;transform:rotate(15deg)}
+  .about-card::after{content:'🔥';position:absolute;bottom:-10px;left:-10px;font-size:4rem;opacity:.15;transform:rotate(-15deg)}
+  .about-card p{margin-bottom:1rem}
+  .about-card .highlight{color:var(--mustard);font-weight:600}
+
+  /* ===== MENU ===== */
+  .menu{background:linear-gradient(180deg,var(--black),#1a0000,var(--black))}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+  .menu-card{background:linear-gradient(145deg,#1a0808,#0d0000);border:2px solid rgba(255,215,0,.15);border-radius:16px;padding:2rem;transition:all .3s;position:relative;overflow:hidden;cursor:default}
+  .menu-card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,.05),transparent);transition:left .5s}
+  .menu-card:hover::before{left:100%}
+  .menu-card:hover{transform:translateY(-6px) scale(1.02);border-color:var(--mustard);box-shadow:0 10px 30px rgba(139,0,0,.4),0 0 15px rgba(255,215,0,.1)}
+  .menu-card .emoji{font-size:2.5rem;margin-bottom:.5rem;display:inline-block;transition:transform .3s}
+  .menu-card:hover .emoji{transform:scale(1.3) rotate(10deg);animation:sizzle .5s ease-in-out}
+  .menu-card h3{font-family:'Bangers',cursive;font-size:1.6rem;color:var(--mustard);margin-bottom:.3rem}
+  .menu-card .desc{color:rgba(255,248,220,.6);font-size:.95rem;line-height:1.5;margin-bottom:1rem}
+  .menu-card .price{font-family:'Bangers',cursive;font-size:1.8rem;color:var(--cream)}
+  .menu-card .price-tag{display:inline-block;background:var(--red);padding:.3rem 1rem;border-radius:20px;border:2px solid var(--mustard)}
+  .spicy-badge{display:inline-block;background:#ff4500;color:#fff;font-size:.7rem;padding:.2rem .6rem;border-radius:10px;margin-left:.5rem;font-weight:600;vertical-align:middle;animation:spicyPulse 1.5s infinite}
+  @keyframes spicyPulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+  /* ===== REVIEWS ===== */
+  .reviews{background:var(--red)}
+  .reviews .section-title{color:var(--cream)}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+  .review-card{background:rgba(0,0,0,.3);border-radius:16px;padding:2rem;border:2px solid rgba(255,215,0,.1);transition:all .3s;position:relative}
+  .review-card:hover{transform:translateY(-4px);border-color:var(--mustard);box-shadow:0 8px 25px rgba(0,0,0,.4)}
+  .review-card .stars{font-size:1.3rem;margin-bottom:.8rem;letter-spacing:2px}
+  .review-card .quote{font-style:italic;line-height:1.7;margin-bottom:1rem;font-size:1.05rem;color:var(--cream)}
+  .review-card .author{color:var(--mustard);font-weight:600}
+  .review-card .verified{font-size:.8rem;color:rgba(255,248,220,.4);margin-top:.2rem}
+
+  /* ===== LOCATION ===== */
+  .location{background:var(--black);text-align:center}
+  .location-card{background:linear-gradient(135deg,rgba(139,0,0,.2),rgba(139,0,0,.1));border:2px solid rgba(255,215,0,.2);border-radius:20px;padding:3rem;max-width:700px;margin:0 auto;position:relative}
+  .location-card h3{font-family:'Bangers',cursive;font-size:2rem;color:var(--mustard);margin-bottom:1rem}
+  .location-card .address{font-size:1.2rem;margin-bottom:1.5rem}
+  .location-card .address a{color:var(--mustard);text-decoration:none}
+  .hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:400px;margin:0 auto;text-align:left;font-size:1rem}
+  .hours-grid .day{color:var(--mustard);font-weight:600}
+  .location-emoji{font-size:3rem;margin-bottom:1rem;display:inline-block;animation:sizzle 3s ease-in-out infinite}
+
+  /* ===== FOOTER ===== */
+  footer{background:#0a0000;padding:3rem 1.5rem;text-align:center;border-top:3px solid var(--red)}
+  footer .signoff{font-family:'Bangers',cursive;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--mustard);margin-bottom:1rem}
+  .social-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap}
+  .social-links a{color:var(--cream);text-decoration:none;font-size:1.1rem;padding:.5rem 1.2rem;border:2px solid rgba(255,215,0,.2);border-radius:50px;transition:all .3s}
+  .social-links a:hover{border-color:var(--mustard);color:var(--mustard);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,215,0,.2)}
+  footer .joke{color:rgba(255,248,220,.35);font-size:.9rem;margin-top:1.5rem;font-style:italic}
+  footer .copy{color:rgba(255,248,220,.25);font-size:.8rem;margin-top:1rem}
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal{opacity:0;transform:translateY(30px);transition:all .6s ease-out}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* ===== MOBILE ===== */
+  @media(max-width:600px){
+    section{padding:3.5rem 1rem}
+    .menu-grid,.reviews-grid{grid-template-columns:1fr}
+    .about-card,.location-card{padding:2rem 1.5rem}
+    .hours-grid{grid-template-columns:1fr;text-align:center}
+    .hours-grid .day{margin-top:.5rem}
+    .cta{padding:.8rem 2rem;font-size:1.3rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="hero-content">
+    <div class="hero-burger">🍔</div>
+    <h1>FAT HENRY'S</h1>
+    <p class="subtitle">🔥 BURGER PARADISE 🔥</p>
+    <p class="tagline">Since Never &bull; Flavortown, USA &bull; Absolutely Unhinged</p>
+    <a href="#menu" class="cta">
+      <span class="cta-glow"></span>
+      SEE THE MENU 🍔
+    </a>
+  </div>
+  <div class="scroll-hint">👇</div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container">
+    <h2 class="section-title reveal">Our "Origin Story" 🍔</h2>
+    <p class="section-sub reveal">Every legend starts somewhere. Ours started with heartburn.</p>
+    <div class="about-card reveal">
+      <p>Fat Henry's was <span class="highlight">founded by a guy who loved burgers so much he made it a personality trait.</span> While other kids had hobbies, Henry had a grill and a dream. That dream? To build burgers so absurdly stacked that you'd need a game plan just to eat one.</p>
+      <p>There's no MBA. No business plan. No exit strategy. Just <span class="highlight">obscene amounts of beef, questionable levels of cheese,</span> and the unshakeable belief that calories don't count if you're having fun.</p>
+      <p>We don't do "light options." We don't do "sensible portions." We do <span class="highlight">burgers that make your cardiologist send a strongly-worded letter.</span> And we do them with love. 🍔❤️</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MENU ===== -->
+<section class="menu" id="menu">
+  <div class="container">
+    <h2 class="section-title reveal">The Menu 🔥</h2>
+    <p class="section-sub reveal">8 ways to question your life choices (in the best way possible)</p>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal">
+        <div class="emoji">👑</div>
+        <h3>The Fat Henry</h3>
+        <p class="desc">Triple patty. Everything on it. No substitutions. No regrets. This is the burger that started a movement and ended several diets.</p>
+        <div class="price"><span class="price-tag">$18.99</span></div>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="emoji">💀</div>
+        <h3>The Widowmaker <span class="spicy-badge">☠️ DEADLY</span></h3>
+        <p class="desc">Ghost pepper. Habanero. Carolina reaper sauce. Signed waiver required. We are not legally responsible for what happens next.</p>
+        <div class="price"><span class="price-tag">$16.99</span></div>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="emoji">💎</div>
+        <h3>The Trust Fund</h3>
+        <p class="desc">Wagyu beef, black truffle aioli, 24k gold leaf, aged gruyère. Costs more than your rent but hey, you're worth it (probably).</p>
+        <div class="price"><span class="price-tag">$89.99</span></div>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="emoji">🌅</div>
+        <h3>The Walk of Shame</h3>
+        <p class="desc">The ultimate hangover cure: bacon, fried egg, american cheese, and a crispy hash brown ON the burger. We don't judge. We heal.</p>
+        <div class="price"><span class="price-tag">$15.99</span></div>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="emoji">🤷</div>
+        <h3>The Commitment Issues</h3>
+        <p class="desc">Half chicken, half beef, because picking one is hard and we respect your indecision. Topped with "figure it out" sauce.</p>
+        <div class="price"><span class="price-tag">$14.99</span></div>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="emoji">🏆</div>
+        <h3>The Overachiever</h3>
+        <p class="desc">Double smash patty, double cheese, caramelized onions, pickles, and our secret sauce that we will take to the grave.</p>
+        <div class="price"><span class="price-tag">$17.99</span></div>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="emoji">🧀</div>
+        <h3>The Freshman 15</h3>
+        <p class="desc">A burger buried under loaded mac &amp; cheese and bacon crumbles. Named after the weight you'll gain. Absolutely no apologies.</p>
+        <div class="price"><span class="price-tag">$16.99</span></div>
+      </div>
+
+      <div class="menu-card reveal">
+        <div class="emoji">🥗</div>
+        <h3>The Plot Twist</h3>
+        <p class="desc">Looks like a salad. Is actually a burger. Lettuce wrap exterior, full burger chaos interior. For when you want to lie to yourself.</p>
+        <div class="price"><span class="price-tag">$13.99</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <h2 class="section-title reveal">What People Say ⭐</h2>
+    <p class="section-sub reveal" style="color:rgba(255,248,220,.6)">Real* reviews from real* customers (*definition of "real" may vary)</p>
+    <div class="reviews-grid">
+
+      <div class="review-card reveal">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"I ate The Fat Henry and blacked out for 20 minutes. When I came to, I had already ordered a second one. 10/10 would lose consciousness again."</p>
+        <p class="author">— MeatSweats_Mike</p>
+        <p class="verified">✅ Verified Meat Enthusiast</p>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"My therapist said I need to stop using burgers as emotional support. I said my therapist has clearly never been to Fat Henry's. I have a new therapist now."</p>
+        <p class="author">— BurgerTherapy_Brenda</p>
+        <p class="verified">✅ Verified Emotional Eater</p>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"Tried The Widowmaker on a dare. I saw God. God was eating a burger. It was also The Widowmaker. God has great taste."</p>
+        <p class="author">— SpiceLife_Steve</p>
+        <p class="verified">✅ Verified Waiver Signer</p>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"I ordered The Trust Fund ironically. Now I'm broke AND addicted. This is the most delicious financial ruin I've ever experienced."</p>
+        <p class="author">— BrokeButFed_Diana</p>
+        <p class="verified">✅ Verified Bankrupt Foodie</p>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"The Walk of Shame cured my hangover, my existential dread, and possibly my credit score. I don't understand that last one but I'm not complaining."</p>
+        <p class="author">— SundayMorning_Sam</p>
+        <p class="verified">✅ Verified Survivor</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOCATION ===== -->
+<section class="location" id="location">
+  <div class="container">
+    <h2 class="section-title reveal">Find Us 📍</h2>
+    <p class="section-sub reveal">If you can find Flavortown, you can find us</p>
+    <div class="location-card reveal">
+      <div class="location-emoji">🏠</div>
+      <h3>Fat Henry's Burger Paradise</h3>
+      <div class="address">📍 420 Meat Street, Flavortown, USA 69420</div>
+      <div class="hours-grid">
+        <span class="day">Mon — Thu</span><span>11am – 10pm</span>
+        <span class="day">Friday</span><span>11am – Midnight</span>
+        <span class="day">Saturday</span><span>10am – Midnight</span>
+        <span class="day">Sunday</span><span>10am – 9pm</span>
+        <span class="day">Holidays</span><span>Open until we run out of beef or willpower</span>
+      </div>
+      <p style="margin-top:1.5rem;color:rgba(255,248,220,.5);font-size:.95rem">🚗 Free parking &bull; 🐕 Dogs welcome (they can't have burgers though, sorry) &bull; 💳 Cash, card, crypto, barter</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p class="signoff">Stay Hungry. Stay Ridiculous. 🍔🔥</p>
+  <div class="social-links">
+    <a href="#" onclick="return false">📸 @fathenrysburgers</a>
+    <a href="#" onclick="return false">🐦 @fathenrys</a>
+    <a href="#" onclick="return false">📘 Fat Henry's Official</a>
+    <a href="#" onclick="return false">🎵 We're on TikTok now (sorry)</a>
+  </div>
+  <p class="joke">🥬 No vegetables were harmed in the making of these burgers. Mostly because we didn't use any. 🥬</p>
+  <p class="copy">© 2026 Fat Henry's Burger Paradise. All rights reserved. All burgers devoured.</p>
+</footer>
+
+<script>
+// Floating burger emojis
+(function(){
+  const emojis=['🍔','🍟','🧀','🥓','🌶️','🔥','🍺','🥤'];
+  for(let i=0;i<15;i++){
+    const el=document.createElement('div');
+    el.className='floater';
+    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.left=Math.random()*100+'vw';
+    el.style.animationDuration=(12+Math.random()*18)+'s';
+    el.style.animationDelay=(-Math.random()*20)+'s';
+    el.style.fontSize=(1+Math.random()*2)+'rem';
+    document.body.appendChild(el);
+  }
+})();
+
+// Scroll reveal
+const revealEls=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*80);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+revealEls.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
